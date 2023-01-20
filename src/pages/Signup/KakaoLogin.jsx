@@ -1,11 +1,24 @@
 import React from "react";
 import styled from "styled-components";
+import Route from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-export const API_KEY = process.env.REACT_APP_REST_API_KEY;
-export const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
-export const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+const API_KEY = `${process.env.REACT_APP_REST_API_KEY}`;
+const REDIRECT_URI = `${process.env.REACT_APP_REDIRECT_URI}`;
+const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+window.location.href = KAKAO_AUTH_URI;
 
 const KakaoLogin = () => {
+  const code = new URL(window.location.href).searchParams.get("code");
+  // const getToken =async() =>{
+  //   const kakaoToken = await fetch("http://localhost:3000/oauth/token"),{
+  //     method : 'post',
+  //     headers : { 'Content-type': 'application/x-www-form-urlencoded'},
+
+  //   }
+
+  // }
+
   const HadleLogin = () => {
     window.location.href = KAKAO_AUTH_URI;
   };
@@ -13,7 +26,6 @@ const KakaoLogin = () => {
 
   return (
     <LoginBox>
-      <LoginTitle>Login</LoginTitle>
       <LoginButton onClick={HadleLogin}>로그인</LoginButton>
     </LoginBox>
   );
@@ -22,17 +34,13 @@ const KakaoLogin = () => {
 export default KakaoLogin;
 
 const LoginBox = styled.div`
-  width: 400px;
-  height: 500px;
+  width: 500px;
+  height: 50px;
   background-color: aqua;
   display: flex;
   justify-content: center;
   flex-direction: column;
   justify-content: space-between;
-`;
-
-const LoginTitle = styled.div`
-  font-size: 20px;
 `;
 
 const LoginButton = styled.div`
