@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import Route from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export const API_KEY = process.env.REACT_APP_REST_API_KEY;
 export const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
@@ -13,8 +15,9 @@ const KakaoLogin = () => {
 
   return (
     <LoginBox>
-      <LoginTitle>Login</LoginTitle>
-      <LoginButton onClick={HadleLogin}>로그인</LoginButton>
+      <LoginButton onClick={HadleLogin}>
+        <img alt="로그인" src="/images/kakao.png" />
+      </LoginButton>
     </LoginBox>
   );
 };
@@ -22,17 +25,13 @@ const KakaoLogin = () => {
 export default KakaoLogin;
 
 const LoginBox = styled.div`
-  width: 400px;
-  height: 500px;
+  width: 500px;
+  height: 50px;
   background-color: aqua;
   display: flex;
   justify-content: center;
   flex-direction: column;
   justify-content: space-between;
-`;
-
-const LoginTitle = styled.div`
-  font-size: 20px;
 `;
 
 const LoginButton = styled.div`
