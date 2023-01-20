@@ -9,6 +9,7 @@ const Router = () => {
       <Routes>
         <Route path="/payment" element={<Payment />} />
         <Route path="/" element={<KakaoLogin />} />
+        <Route path="/auth/kakao/callback" element={<KakaoLogin />} />
       </Routes>
     </BrowserRouter>
   );
