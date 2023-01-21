@@ -4,18 +4,15 @@ import styled from "styled-components";
 import axios from "axios";
 const Payment = () => {
   useEffect(() => {
-    axios(
-      `https://cors-anywhere.herokuapp.com/https://payment.yamuzin.net/payment/token`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-        },
-      }
-    ).then((result) => {
-      console.log(result);
-      if (result.accessToken) {
-        localStorage.setItem("token", result.accessToken);
+    axios(`/payment/token`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+    }).then((result) => {
+      console.log(result.data.message);
+      if (result.data.message) {
+        localStorage.setItem("token", result.data.message);
       }
     });
   }, []);
@@ -38,22 +35,58 @@ const Payment = () => {
         buyer_addr: "서울 강남구 도곡동",
         buyer_postcode: "123-456",
       },
-      function (rsp) {
+      (rsp) => {
         console.log(rsp);
         if (rsp.success) {
-          var msg = "결제가 완료되었습니다.";
-          msg += "고유ID : " + rsp.imp_uid;
-          msg += "상점 거래ID : " + rsp.merchant_uid;
-          msg += "결제 금액 : " + rsp.paid_amount;
-          msg += "카드 승인번호 : " + rsp.apply_num;
+          // axios로 HTTP 요청
+          axios({
+            url: `/payment/find?imp_uid=${rsp.imp_uid}`,
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          }).then((data) => {
+            // 서버 결제 API 성공시 로직
+            alert(`결제 완료`);
+            console.log(data);
+            console.log(rsp.imp_uid);
+            console.log(localStorage.token);
+          });
         } else {
-          var msg = "결제에 실패하였습니다.";
-          msg += "에러내용 : " + rsp.error_msg;
+          alert(`결제에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
         }
-        alert(msg);
       }
+      // function (rsp) {
+      //   console.log(rsp);
+
+      // if (rsp.success) {
+      //   // axios로 HTTP 요청
+      //   axios(`/payment/find/${rsp.imp_uid}`, {
+      //     method: "GET",
+      //     headers: { "Content-Type": "application/json;charset=utf-8" },
+      //   }).then((data) => {
+      //     // 서버 결제 API 성공시 로직
+      // alert(`결제 완료`);
+      // console.log(data);
+      // console.log(rsp.imp_uid);
+      // console.log(localStorage.token);
+      //   });
+      // } else {
+      //   alert(`결제에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
+      // }
+      // if (rsp.success) {
+      // var msg = "결제가 완료되었습니다.";
+      // msg += "고유ID : " + rsp.imp_uid;
+      // msg += "상점 거래ID : " + rsp.merchant_uid;
+      // msg += "결제 금액 : " + rsp.paid_amount;
+      // msg += "카드 승인번호 : " + rsp.apply_num;
+      // } else {
+      //   var msg = "결제에 실패하였습니다.";
+      //   msg += "에러내용 : " + rsp.error_msg;
+      // }
+      // alert(msg);
+      // }
     );
   }
+
   return (
     <Container>
       <Card>
