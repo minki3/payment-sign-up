@@ -1,0 +1,10 @@
+[
+  {
+    "id ": 1,
+    "product": "사과",
+    "price": 1000
+  },
+  { "id ": 2, "product": "배", "price": 2000 },
+  { "id ": 3, "product": "바나나", "price": 3000 },
+  { "id": 4, "product": "수박", "price": 5000 }
+]
