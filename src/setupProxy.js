@@ -13,4 +13,10 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+  app.use(
+    createProxyMiddleware("/payment/import", {
+      target: "https://payment.yamuzin.net",
+      changeOrigin: true,
+    })
+  );
 };
