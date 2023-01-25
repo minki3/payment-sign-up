@@ -21,7 +21,7 @@ const KakaoLogin = () => {
     const API_KEY = `${process.env.REACT_APP_REST_API_KEY}`;
 
     axios
-      .post(
+      .get(
         `https://kauth.kakao.com/auth/token?grant_type=authorization_code&client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code=${code}`,
         {},
         {
@@ -32,17 +32,37 @@ const KakaoLogin = () => {
       )
       .then((res) => {
         console.log(res);
+        const { data } = res;
+        const { access_token } = data;
+        if (access_token) {
+          console.log(`Bearer ${access_token}`);
+          axios
+            .get(
+              "http://kapi.kakao.com/v2/user/me ",
+              {},
+              {
+                headers: {
+                  Authorization: `Bearer ${access_token}`,
+                  "Content-type": "application/x-www-form-urlencoded",
+                },
+              }
+            )
+            .then((res) => {
+              console.log("suc data");
+              console.log(res);
+            });
+        }
       });
   }, []);
 
-  const HadleLogin = () => {
-    window.location.href = KAKAO_AUTH_URI;
-  };
-  console.log(window.location.href);
+  // const HadleLogin = () => {
+  //   window.location.href = KAKAO_AUTH_URI;
+  // };
+  // console.log(window.location.href);
 
   return (
     <LoginBox>
-      <LoginButton onClick={HadleLogin}>{"code"}</LoginButton>
+      <LoginButton href={KAKAO_AUTH_URI}>{"code"}</LoginButton>
     </LoginBox>
   );
 };
