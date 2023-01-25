@@ -7,7 +7,7 @@ import axios from "axios";
 
 const API_KEY = `${process.env.REACT_APP_REST_API_KEY}`;
 const REDIRECT_URI = `${process.env.REACT_APP_REDIRECT_URI}`;
-const KAKAO_AUTH_URI = `https://kauth.kakao.com/auth/authorize?client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 window.location.href = KAKAO_AUTH_URI;
 
 console.log(KAKAO_AUTH_URI);
@@ -22,7 +22,7 @@ const KakaoLogin = () => {
 
     axios
       .get(
-        `https://kauth.kakao.com/auth/token?grant_type=authorization_code&client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code=${code}`,
+        `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code=${code}`,
         {},
         {
           headers: {
