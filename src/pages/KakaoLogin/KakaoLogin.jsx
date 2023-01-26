@@ -1,94 +1,31 @@
-import React from "react";
-import styled from "styled-components";
-import Route from "react-router-dom";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const API_KEY = `${process.env.REACT_APP_REST_API_KEY}`;
-const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
-const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-window.location.href = KAKAO_AUTH_URI;
-
-console.log(KAKAO_AUTH_URI);
-
 const KakaoLogin = () => {
-  useEffect(() => {
-    const params = new URL(document.location.toString()).searchParams;
-
-    const code = params.get("code");
-    // const grant_type = "authorization_code";
-    const REDIRECT_URI = `${process.env.REACT_APP_REDIRECT_URI}`;
-
-    const API_KEY = `${process.env.REACT_APP_REST_API_KEY}`;
-
-    axios
-      .get(
-        `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code=${code}`,
-        {},
-        {
-          headers: {
-            "Content-type": "application/x-www-form-urlencoded",
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-        const { data } = res;
-        const { access_token } = data;
-        if (access_token) {
-          console.log(`Bearer ${access_token}`);
-          axios
-            .get(
-              "http://kapi.kakao.com/v2/user/me ",
-              {},
-              {
-                headers: {
-                  Authorization: `Bearer ${access_token}`,
-                  "Content-type": "application/x-www-form-urlencoded",
-                },
-              }
-            )
-            .then((res) => {
-              console.log("suc data");
-              console.log(res);
-            });
+  const location = useLocation();
+  const navigate = useNavigate();
+  const KAKAO_CODE = location.search.split("=")[1];
+  const REST_API_KEY = "a7f6c9d4f53141acadeaacc24b6df9ad";
+  const REDIRECT_URI = `http://localhost:3000/oauth/Kakaologin`;
+  const getKakaoToken = () => {
+    fetch(`https://kauth.kakao.com/oauth/token`, {
+      method: "POST",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      body: `grant_type=authorization_code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${KAKAO_CODE}`,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.access_token) {
+          localStorage.setItem("token", data.access_token);
+        } else {
+          navigate("/");
         }
       });
+  };
+  useEffect(() => {
+    if (!location.search) return;
+    getKakaoToken();
   }, []);
-
-  // const HadleLogin = () => {
-  //   window.location.href = KAKAO_AUTH_URI;
-  // };
-  // console.log(window.location.href);
-
-  return (
-    <LoginBox>
-      <LoginButton href={KAKAO_AUTH_URI}>{"code"}</LoginButton>
-    </LoginBox>
-  );
 };
-
 export default KakaoLogin;
-
-const LoginBox = styled.div`
-  width: 500px;
-  height: 50px;
-  background-color: aqua;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-const LoginButton = styled.div`
-  width: 100%;
-  height: 40px;
-  background-color: yellow;
-  align-items: center;
-  text-align: center;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
