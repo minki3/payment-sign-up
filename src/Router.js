@@ -9,8 +9,8 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/payment" element={<Payment />} />
-        <Route path="/kakaologin" element={<KakaoLogin />} />
-        <Route path="/oauth/kakao/callback" element={<KakaoLogin />} />s
+        <Route path="/" element={<KakaoLogin />} />
+        <Route path="/oauth/kakaologin" element={<KakaoCallBack />} />
       </Routes>
     </BrowserRouter>
   );
