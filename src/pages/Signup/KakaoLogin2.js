@@ -2,12 +2,14 @@ import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const KakaoLogin = () => {
+const KakaoLogin2 = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const KAKAO_CODE = location.search.split("=")[1];
-  const REST_API_KEY = "a7f6c9d4f53141acadeaacc24b6df9ad";
-  const REDIRECT_URI = `http://localhost:3000/oauth/Kakaologin`;
+
+  const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
+  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+
   const getKakaoToken = () => {
     fetch(`https://kauth.kakao.com/oauth/token`, {
       method: "POST",
@@ -23,9 +25,11 @@ const KakaoLogin = () => {
         }
       });
   };
+
   useEffect(() => {
     if (!location.search) return;
     getKakaoToken();
   }, []);
 };
-export default KakaoLogin;
+
+export default KakaoLogin2;
