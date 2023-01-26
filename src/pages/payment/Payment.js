@@ -164,7 +164,16 @@ const Payment = () => {
 
 export default Payment;
 
-const Container = styled.div``;
+const Container = styled.div`
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  padding-top: 100px;
+`;
 
 const Card = styled.div`
   display: flex;
@@ -172,9 +181,10 @@ const Card = styled.div`
   align-items: center;
   flex-direction: column;
   border: 1px solid gray;
-  width: 300px;
+  width: 200px;
   text-align: center;
   padding: 20px;
+  margin: 20px;
 `;
 
 const BuyButton = styled.button``;
