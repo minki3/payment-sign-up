@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "product": "사과",
+    "price": 100
+  },
+  { "id": 2, "product": "배", "price": 200 },
+  { "id": 3, "product": "바나나", "price": 300 },
+  { "id": 4, "product": "수박", "price": 500 },
+  {
+    "id": 5,
+    "product": "사과",
+    "price": 100
+  },
+  { "id": 6, "product": "배", "price": 200 },
+  { "id": 7, "product": "바나나", "price": 300 },
+  { "id": 8, "product": "수박", "price": 500 },
+  {
+    "id": 9,
+    "product": "사과",
+    "price": "100"
+  },
+  { "id": 10, "product": "배", "price": 200 },
+  { "id": 11, "product": "바나나", "price": 300 },
+  { "id": 12, "product": "수박", "price": 500 }
+]

@@ -1,5 +1,8 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import styled from "styled-components";
+import Route from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import axios from "axios";
 
 const KakaoLogin = () => {
@@ -23,9 +26,39 @@ const KakaoLogin = () => {
         }
       });
   };
-  useEffect(() => {
-    if (!location.search) return;
-    getKakaoToken();
-  }, []);
+
+  // const HadleLogin = () => {
+  //   window.location.href = KAKAO_AUTH_URI;
+  // };
+  // console.log(window.location.href);
+
+  return (
+    <LoginBox>
+      <LoginButton href={KAKAO_AUTH_URI}>{"code"}</LoginButton>
+    </LoginBox>
+  );
 };
+
 export default KakaoLogin;
+
+const LoginBox = styled.div`
+  width: 500px;
+  height: 50px;
+  background-color: aqua;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const LoginButton = styled.div`
+  width: 100%;
+  height: 40px;
+  background-color: yellow;
+  align-items: center;
+  text-align: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
