@@ -2,25 +2,97 @@
   {
     "id": 1,
     "product": "사과",
-    "price": 100
+    "price": 100,
+    "img": "https://picsum.photos/200/200"
   },
-  { "id": 2, "product": "배", "price": 200 },
-  { "id": 3, "product": "바나나", "price": 300 },
-  { "id": 4, "product": "수박", "price": 500 },
+  {
+    "id": 2,
+    "product": "배",
+    "price": 200,
+    "img": "https://picsum.photos/200/200"
+  },
+  {
+    "id": 3,
+    "product": "바나나",
+    "price": 300,
+    "img": "https://picsum.photos/200/200"
+  },
+  {
+    "id": 4,
+    "product": "수박",
+    "price": 500,
+    "img": "https://picsum.photos/200/200"
+  },
   {
     "id": 5,
     "product": "사과",
-    "price": 100
+    "price": 100,
+    "img": "https://picsum.photos/200/200"
   },
-  { "id": 6, "product": "배", "price": 200 },
-  { "id": 7, "product": "바나나", "price": 300 },
-  { "id": 8, "product": "수박", "price": 500 },
+  {
+    "id": 6,
+    "product": "배",
+    "price": 200,
+    "img": "https://picsum.photos/200/200"
+  },
+  {
+    "id": 7,
+    "product": "바나나",
+    "price": 300,
+    "img": "https://picsum.photos/200/200"
+  },
+  {
+    "id": 8,
+    "product": "수박",
+    "price": 500,
+    "img": "https://picsum.photos/200/200"
+  },
   {
     "id": 9,
     "product": "사과",
-    "price": "100"
+    "price": "100",
+    "img": "https://picsum.photos/200/200"
   },
-  { "id": 10, "product": "배", "price": 200 },
-  { "id": 11, "product": "바나나", "price": 300 },
-  { "id": 12, "product": "수박", "price": 500 }
+  {
+    "id": 10,
+    "product": "배",
+    "price": 200,
+    "img": "https://picsum.photos/200/200"
+  },
+  {
+    "id": 11,
+    "product": "바나나",
+    "price": 300,
+    "img": "https://picsum.photos/200/200"
+  },
+  {
+    "id": 12,
+    "product": "수박",
+    "price": 500,
+    "img": "https://picsum.photos/200/200"
+  },
+  {
+    "id": 13,
+    "product": "3개월",
+    "price": 750,
+    "img": "https://picsum.photos/200/200"
+  },
+  {
+    "id": 14,
+    "product": "6개월",
+    "price": 2500,
+    "img": "https://picsum.photos/200/200"
+  },
+  {
+    "id": 15,
+    "product": "9개월",
+    "price": 5000,
+    "img": "https://picsum.photos/200/200"
+  },
+  {
+    "id": 16,
+    "product": "12개월",
+    "price": 10000,
+    "img": "https://picsum.photos/200/200"
+  }
 ]

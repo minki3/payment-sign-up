@@ -1,27 +1,103 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import ProductCard from "./ProductCard";
+import Profile from "./Profile";
 
 const Payment = () => {
+  const [user_id, setUserId] = useState();
+  const [nickName, setnickName] = useState();
+  const [profileImage, setProfileImage] = useState();
   const [product, setProduct] = useState([]);
+  const [accessToken, setAccessToken] = useState([]);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const KAKAO_CODE = location.search.split("=")[1];
+
+  const REST_API_KEY = "9e4f845d58d89d194353e6cf169d9f73";
+  const REDIRECT_URI = `http://localhost:3000/oauth/payment`;
+
+  // const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
+  // const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+
+  const getKakaoToken = () => {
+    fetch(`https://kauth.kakao.com/oauth/token`, {
+      method: "POST",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      body: `grant_type=authorization_code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${KAKAO_CODE}`,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.access_token) {
+          localStorage.setItem("token", data.access_token);
+
+          setAccessToken(data.access_token);
+
+          const getProfile = async () => {
+            try {
+              let response = await axios.get(
+                "https://kapi.kakao.com/v2/user/me",
+                {
+                  headers: {
+                    Authorization: `Bearer ${localStorage.token}`,
+                    "Content-type": "application/x-www-form-urlencoded",
+                  },
+                }
+              );
+              let data = response.data;
+              console.log(data);
+              console.log(data.id);
+              console.log(data.properties.nickname);
+              console.log(data.kakao_account.email);
+
+              axios({
+                url: `/kakao/log-in?email=${data.kakao_account.email}`,
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+              });
+              // axios({
+              //   url: `kakao/sign-in`,
+              //   method: "POST",
+              //   headers: { "Content-Type": "application/json" },
+              //   data: {
+              //     id: data.properties.nickname,
+              //     email: data.kakao_account.email,
+              //   },
+              // });
+            } catch (error) {
+              console.error(error);
+            }
+          };
+          getProfile();
+        } else {
+          console.log(data);
+        }
+      });
+  };
+
+  useEffect(() => {
+    if (!location.search) return;
+    getKakaoToken();
+  }, []);
 
   useEffect(() => {
     axios("/data/data.json").then((result) => setProduct(result.data));
   }, []);
 
-  useEffect(() => {
-    axios(`/payment/token`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-    }).then((result) => {
-      console.log(result.data.message);
-      if (result.data.message) {
-        localStorage.setItem("token", result.data.message);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios(`/payment/token`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json;charset=utf-8",
+  //     },
+  //   }).then((result) => {
+  //     console.log(result.data.message);
+  //     if (result.data.message) {
+  //       localStorage.setItem("token", result.data.message);
+  //     }
+  //   });
+  // }, []);
 
   // const IMP = window.IMP;
 
@@ -65,12 +141,22 @@ const Payment = () => {
 
   return (
     <Container>
-      {product.map((item) => {
-        const { id, product, price } = item;
+      {/* {product.map((item) => {
+        const { id, product, price, img } = item;
         return (
           <Card key={id}>
+            <img src={img} alt="사진" />
             <div>{product}</div>
             <div>{price}원</div>
+            <label htmlFor="radio">10% 할인</label>
+            <input
+              type="radio"
+              onClick={() => {
+                const discount = Math.round(price * (10 / 100));
+                const newPrice = price - discount;
+              }}
+            ></input>
+
             <BuyButton
               onClick={() => {
                 const IMP = window.IMP;
@@ -79,7 +165,7 @@ const Payment = () => {
                   {
                     pg: "html5_inicis",
                     pay_method: "card",
-                    merchant_uid: "merchant_" + new Date().getTime(),
+                    merchant_uid: "merchant_ * " + new Date().getTime(),
                     name: product, //결제창에서 보여질 이름
                     amount: price, //실제 결제되는 가격
                     buyer_email: "iamport@siot.do",
@@ -157,7 +243,11 @@ const Payment = () => {
             </BuyButton>
           </Card>
         );
+      })} */}
+      {product.map((items) => {
+        return <ProductCard key={items.id} product={items} />;
       })}
+      {/* <Profile accessToken={accessToken} /> */}
     </Container>
   );
 };

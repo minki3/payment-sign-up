@@ -19,4 +19,16 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+  app.use(
+    createProxyMiddleware("/kakao/log-in", {
+      target: "https://kakao.yamuzin.net",
+      changeOrigin: true,
+    })
+  );
+  app.use(
+    createProxyMiddleware("/kakao/sign-in", {
+      target: "https://kakao.yamuzin.net",
+      changeOrigin: true,
+    })
+  );
 };

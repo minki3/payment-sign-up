@@ -9,12 +9,14 @@ import Nav from "./components/Nav/Nav";
 const Router = () => {
   return (
     <BrowserRouter>
-      <Nav />
       <Routes>
-        <Route path="/" element={<Payment />} />
-        <Route path="/kakaologin" element={<KakaoLogin />} />
-        <Route path="/oauth/kakaologin2" element={<KakaoLogin2 />} />
-        <Route path="/routinepay" element={<RoutinePay />} />
+        <Route path="/" element={<KakaoLogin />} />
+
+        <Route element={<Nav />}>
+          <Route path="/oauth/payment" element={<Payment />} />
+          {/* <Route path="/oauth/kakaologin2" element={<KakaoLogin2 />} /> */}
+          <Route path="/routinepay" element={<RoutinePay />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
