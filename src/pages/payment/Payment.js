@@ -1,27 +1,61 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
+import Profile from "../Signup/Profile";
 
 const Payment = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [product, setProduct] = useState([]);
+  const KAKAO_CODE = location.search.split("=")[1];
+
+  const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
+  const REDIRECT_URI = "http://localhost:3000/oauth/payment";
+
+  const getKakaoToken = () => {
+    fetch(`https://kauth.kakao.com/oauth/token`, {
+      method: "POST",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      body: `grant_type=authorization_code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${KAKAO_CODE}`,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.access_token) {
+          localStorage.setItem("token", data.access_token);
+          console.log(data);
+        } else {
+          console.log(data);
+        }
+      });
+  };
+
+  // useEffect(() => {
+  //   getKakaoToken();
+  // });
+
+  useEffect(() => {
+    if (!location.search) return;
+    getKakaoToken();
+  }, []);
 
   useEffect(() => {
     axios("/data/data.json").then((result) => setProduct(result.data));
   }, []);
 
-  useEffect(() => {
-    axios(`/payment/token`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-    }).then((result) => {
-      console.log(result.data.message);
-      if (result.data.message) {
-        localStorage.setItem("token", result.data.message);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios(`/payment/token`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json;charset=utf-8",
+  //     },
+  //   }).then((result) => {
+  //     console.log(result.data.message);
+  //     if (result.data.message) {
+  //       localStorage.setItem("token", result.data.message);
+  //     }
+  //   });
+  // }, []);
 
   // const IMP = window.IMP;
 
@@ -158,6 +192,7 @@ const Payment = () => {
           </Card>
         );
       })}
+      <Profile />
     </Container>
   );
 };
