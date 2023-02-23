@@ -1,7 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
+
+const interruptedRoute = ["/community"];
 
 const Nav = () => {
+  const { pathname } = useLocation();
+  const isHide = interruptedRoute.some((path) => path === pathname);
+
+  if (isHide) return <></>;
+
   return <Header>login & payment</Header>;
 };
 
