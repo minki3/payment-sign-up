@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useState } from "react";
-import CommunityModal from "./Community";
+import CommunityModal from "./CommunityModal";
+import ComModal from "./ComModal";
 
-const CommunityNav = () => {
+const CommunityNav = ({}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [modal, setModal] = useState(false);
+
   return (
     <Div>
       <DivBox2>
-        {isOpen ? <CommunityModal /> : ""}
         <ButtonBox
           onClick={() => {
-            setIsOpen(!isOpen);
+            setIsOpen(true);
           }}
-        ></ButtonBox>
-        <ButtonBox2>안녕</ButtonBox2>
+        >
+          {isOpen ? <CommunityModal /> : ""}
+        </ButtonBox>
+        <ButtonBox2
+          onClick={() => {
+            setModal(true);
+          }}
+        >
+          ac-tie
+          {modal ? <ComModal setModal={setModal} /> : ""}
+        </ButtonBox2>
 
         <ButtonBox3>123</ButtonBox3>
       </DivBox2>
@@ -33,30 +43,29 @@ const Div = styled.div`
 
 const DivBox2 = styled.div`
   width: 80%;
-  height: 100px;
-  background-color: bisque;
+  height: 45px;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
 `;
 
 const ButtonBox = styled.div`
-  width: 200px;
-  height: 100px;
-  background-color: aqua;
+  width: 100px;
+  height: 45px;
+  border: 1px solid #717171;
   border-radius: 30%;
+  box-shadow: inset;
 `;
 
 const ButtonBox2 = styled.div`
-  width: 200px;
-  height: 100px;
+  width: 100px;
+  height: 45px;
   background-color: yellow;
   border-radius: 30%;
 `;
 
 const ButtonBox3 = styled.div`
-  width: 200px;
-  height: 100px;
+  width: 100px;
+  height: 45px;
   background-color: yellowgreen;
   border-radius: 30%;
 `;

@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import CommunityNav from "./CommunityNav";
-import CommunityModal from "./CommunityNav";
+import Modal from "./CommunityNav";
 
-const Community = ({ onIsOpen }) => {
+const Community = () => {
   return (
+    // <div>123123</div>
     <BigBox>
       <BigOneBox>
-        <CommunityNav onIsOpen={onIsOpen} />
+        <CommunityNav />
       </BigOneBox>
     </BigBox>
   );
