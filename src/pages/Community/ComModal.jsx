@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import CommunityNav from "./CommunityNav";
 
-const ComModal = ({ setModal }) => {
+const ComModal = ({ modal, setModal }) => {
   const [data, setData] = useState({});
   const [activeImg, setActiveImg] = useState(0);
 
@@ -12,13 +11,12 @@ const ComModal = ({ setModal }) => {
       .then((response) => response.json())
       .then((result) => setData(result[0]));
   }, []);
+  const close = () => {
+    setModal(false);
+  };
 
   const handleButton = () => {
     setActiveImg((prevIndex) => (prevIndex + 1) % data.image_url.length);
-  };
-
-  const ModalDown = () => {
-    setModal(false);
   };
 
   return (
@@ -26,10 +24,10 @@ const ComModal = ({ setModal }) => {
       <Box2>
         <Down
           onClick={() => {
-            setModal(false);
+            close();
           }}
         >
-          Deep
+          x
         </Down>
         <BigBox>
           <Box4>{data.name && data.name[0]}</Box4>
@@ -38,11 +36,11 @@ const ComModal = ({ setModal }) => {
         <BigBox2>
           <Box4>{data.name && data.name[1]}</Box4>
           <Box3
-            src={data.image_url && data.image_url[0 - activeImg]}
+            src={data.image_url && data.image_url[1 - activeImg]}
             alt="img"
           />
         </BigBox2>
-        <Button onClick={handleButton}>Change Image</Button>
+        <Button onClick={handleButton}> - </Button>
       </Box2>
     </Box>
   );
@@ -58,10 +56,15 @@ const Box = styled.div`
 const Box2 = styled.div`
   width: 300px;
   height: 300px;
+  position: absolute;
+  left: -1;
+  top: 50px;
   border: 1px solid #717171;
-  /* background-color: white; */
-  position: relative;
-  top: 30px;
+  background-color: white;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const BigBox = styled.div`
@@ -93,9 +96,11 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const Down = styled.div`
+const Down = styled.button`
   font-weight: bold;
   cursor: pointer;
-  display: flex;
   align-items: center;
+  border: none;
+  background-color: transparent;
+  top: 20px;
 `;
