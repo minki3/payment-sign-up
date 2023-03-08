@@ -8,6 +8,8 @@ import Nav from "./components/Nav/Nav";
 import Profile from "./pages/Signup/Profile";
 import Local from "./pages/Local/Local";
 import Community from "./pages/Community/Community";
+import Ckeditor from "./pages/Ckeditor/Ckeditor";
+import Slider from "./pages/Slider/Slider";
 
 const Router = () => {
   return (
@@ -21,6 +23,8 @@ const Router = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/local" element={<Local />} />
         <Route path="/community" element={<Community />} />
+        <Route path="/ckeditor" element={<Ckeditor />} />
+        <Route path="/slider" element={<Slider />} />
       </Routes>
     </BrowserRouter>
   );
