@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import CommunityNav from "./CommunityNav";
 import { useState, useRef, useEffect } from "react";
+import Slider from "../Slider/Slider";
 
 const Community = () => {
   return (
@@ -10,7 +11,9 @@ const Community = () => {
       <BigOneBox>
         <CommunityNav />
       </BigOneBox>
-      <BigTwoBox>123</BigTwoBox>
+      <BigTwoBox>
+        <Slider />
+      </BigTwoBox>
     </BigBox>
   );
 };
