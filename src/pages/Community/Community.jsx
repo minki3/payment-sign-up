@@ -14,6 +14,7 @@ const Community = () => {
       <BigTwoBox>
         <Slider />
       </BigTwoBox>
+      <BigToBox>123</BigToBox>
     </BigBox>
   );
 };
@@ -31,8 +32,14 @@ const BigOneBox = styled.div`
 
 const BigTwoBox = styled.div`
   width: 100%;
-  height: 700px;
+  height: 300px;
   border: 1px solid black;
+`;
+
+const BigToBox = styled.div`
+  width: 100px;
+  height: 100px;
+  background-color: beige;
 `;
 
 const sliderData = [
