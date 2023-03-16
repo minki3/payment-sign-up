@@ -10,6 +10,7 @@ import Local from "./pages/Local/Local";
 import Community from "./pages/Community/Community";
 import Ckeditor from "./pages/Ckeditor/Ckeditor";
 import Slider from "./pages/Slider/Slider";
+import Location from "./Location/Location";
 
 const Router = () => {
   return (
@@ -25,6 +26,7 @@ const Router = () => {
         <Route path="/community" element={<Community />} />
         <Route path="/ckeditor" element={<Ckeditor />} />
         <Route path="/slider" element={<Slider />} />
+        <Route path="/location" element={<Location />} />
       </Routes>
     </BrowserRouter>
   );

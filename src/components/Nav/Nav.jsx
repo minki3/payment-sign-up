@@ -3,12 +3,14 @@ import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 
 const interruptedRoute = ["/community"];
+const someone = ["/Location"];
 
 const Nav = () => {
   const { pathname } = useLocation();
   const isHide = interruptedRoute.some((path) => path === pathname);
+  const Hide = someone.some((path) => path === pathname);
 
-  if (isHide) return <></>;
+  if ((isHide, Hide)) return <></>;
 
   return <Header>login & payment</Header>;
 };
